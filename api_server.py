@@ -17,26 +17,19 @@ class LoginHandler(RequestHandler):
 
     def get(self):
         # 读取json数据
-        bytes = self.request.body  # 字节类型
-        print(bytes)
-        print(self.request.headers.get('Content-Type'))
+        bytes = self.request.body
 
-        # 从请求头中读取请求上传的数据类型（body的数据类型）
+        # 从请求头中读取请求上传的类型
         content_type = self.request.headers.get('Content-Type')
         if content_type.startswith('application/json'):
-            # self.write('upload json ok')
             json_str = bytes.decode('utf-8')
-            # 进行反序列化
             json_data = json.loads(json_str)
-            # self.write(json_data['name'])
-            # self.write(json_data['pwd'])
 
             resp_data = {}
             login_user = None
-            # 查询用户名和口令是否正确
             for user in self.users:
-                if user['name'] == json_data['name']:
-                    if user['pwd'] == json_data['pwd']:
+                if json_data['name'] == user['name']:
+                    if json_data['pwd'] == user['pwd']:
                         login_user = user
                         break
             if login_user:
@@ -46,19 +39,92 @@ class LoginHandler(RequestHandler):
                 resp_data['msg'] = '查无此用户'
 
             self.set_header('Content-Type', 'application/json')
-            self.write(resp_data)  # write()函数接收str,dict,list
-
+            self.write(resp_data)
         else:
-            self.write('upload data 必须是json数据')
+            self.write('uploda data 必须是json类型')
 
     def post(self, *args, **kwargs):
-        pass
+        bytes = self.request.body
+
+        # 从请求头中获取请求上传的类型
+        content_type = self.request.headers.get('Content-Type')
+
+        if content_type.startswith('application/json'):
+            json_str = bytes.decode('utf-8')
+            json_data = json.loads(json_str)
+
+            name = json_data['name']
+            pwd = json_data[('pwd')]
+            phone = json_data[('phone')]
+            last_login_device = json_data.setdefault('last_login_device', 'PC')
+
+            resp_data = {}
+            if all((name, pwd)):
+                yonghu = {
+                    'id': self.users[len(self.users) - 1]['id'] + 1,
+                    'name': name,
+                    'pwd': pwd,
+                    'phone': phone,
+                    'last_login_device': last_login_device
+                }
+                self.users.append(yonghu)
+                resp_data['msg'] = '添加成功'
+                resp_data['user'] = self.users
+                print(self.users)
+            else:
+                resp_data['msg'] = '添加失败'
+                self.write('填写正确的用户名或者密码')
+
+            self.set_header('Content', 'application/json')
+            self.write(resp_data)
+        else:
+            print('请上传正确的类型')
 
     def put(self):
-        pass
+        bytes = self.request.body
+
+        content_type = self.request.headers.get('Content-Type')
+        if content_type.startswith('application/json'):
+            json_str = bytes.decode('utf-8')
+            json_data = json.loads(json_str)
+            resp_data = {}
+            for u in self.users:
+                if u['id'] == int(json_data['id']):
+                    for kay, value in json_data.items():
+                        u[kay] = value
+                    resp_data['msg'] = '修改成功'
+                    resp_data['user'] = self.users
+                else:
+                    resp_data['msg'] = '您输入的信息不存在，请重新输入'
+            self.set_header('Content-Type', 'application/json')
+            self.write(resp_data)
+        else:
+            self.write('请输入正确的类型')
 
     def delete(self, *args, **kwargs):
-        pass
+        bytes = self.request.body
+
+        content_type = self.request.headers.get('Content-Type')
+        if content_type.startswith('application/json'):
+            json_str = bytes.decode('utf-8')
+            json_data = json.loads(json_str)
+
+            resp_data = {}
+            for u in self.users:
+                if u['id'] == int(json_data['id']):
+                    index = int(json_data['id']) - 1
+                    self.users.remove(u)
+
+                    resp_data['msg'] = '删除成功'
+                    resp_data['user'] = self.users
+                else:
+                    resp_data['msg'] = '请输入正确的信息'
+
+                self.set_header('Content-Type', 'application/json')
+                self.write(resp_data)
+
+        else:
+            print('请输入正确的格式')
 
     def cors(self):
         self.set_header('Access-Control-Allow-Origin', '*')

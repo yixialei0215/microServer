@@ -10,7 +10,7 @@ class TestTornadoRequest(TestCase):
         # 发起post请求，表单参数使用data来指定
         resp = requests.post(url, data={
             'name': 'disen',
-            'city': '西安'
+            'city': ['西安', '上海']
         })
         print(resp.text)
 
@@ -26,9 +26,9 @@ class TestTornadoRequest(TestCase):
         url = self.base_url + '/'
 
         #  查询参数
-        resp = requests.get(url, params={
-            'wd': '张奥',
-            'title': ['33', '22']
+        resp = requests.get(url, data={
+            'name': '张奥',
+            'city': ['33', '22']
         })
 
         # 当参数没有给对时，会出现400的错误
@@ -75,7 +75,7 @@ class TestUserRequest(TestCase):
 
     def test_login(self):
         resp = requests.get(self.url,
-                            json={'name': 'disen',
+                            json={'name': 'jack',
                                   'pwd': '123'
                                   })
         if resp.request.headers.get('Content-Type').startswith('application/json'):
@@ -83,3 +83,33 @@ class TestUserRequest(TestCase):
             print(resp.json())
         else:
             print(resp.text)
+
+    def test_register(self):
+        resp = requests.post(self.url,
+                             json={
+                                 'name': 'liming',
+                                 'pwd': '456',
+                                 'phone': '18693489523'
+                             })
+        if resp.request.headers.get('Content-Type').startswith('application/json'):
+            print(resp.json())
+        else:
+            print(resp.text)
+
+    def test_update(self):
+        resp = requests.put(self.url,
+                            json={
+                                'id': 1,
+                                'name': 'zhangao'
+                            })
+        if resp.request.headers.ger('Content-Type').startswith('application/json'):
+            print(resp.json())
+        else:
+            print(resp.text)
+
+    def test_delete(self):
+        resp = requests.delete(self.url,
+                               json={
+                                   'id': 1
+                               })
+        print(resp.json())

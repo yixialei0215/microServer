@@ -42,7 +42,7 @@ class IndexHandler(tornado.web.RequestHandler):
 
         # 建议使用
         name = self.get_body_arguments('name')
-        city = self.get_body_arguments('city')
+        city = self.get_body_argument('city')
 
         self.write('<h3>我是POST请求中的%s,%s</h3>' % (name, city))
 

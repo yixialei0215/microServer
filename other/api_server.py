@@ -15,6 +15,11 @@ class LoginHandler(RequestHandler):
         'last_login_device': 'Android 5.1 Oneplus5'
     }]
 
+    def set_default_headers(self):
+        self.set_header('Access-Control-Allow-Origin', '*')
+        self.set_header('Access-Control-Allow-Headers', 'x-requested-with')
+        self.set_header('Access-Control-Allow-Methods', 'GET,POST,DELETE,PUT')
+
     def get(self):
         # 读取json数据
         bytes = self.request.body
@@ -126,10 +131,8 @@ class LoginHandler(RequestHandler):
         else:
             print('请输入正确的格式')
 
-    def cors(self):
-        self.set_header('Access-Control-Allow-Origin', '*')
-        self.set_header('Access-Control-Allow-Headers', 'x-requested-with')
-        self.set_header('Access-Control-Allow-Methods', 'GET,POST,DELETE,PUT')
+    def options(self, *args, **kwargs):
+        self.set_status(200)
 
     def on_finish(self):
         pass

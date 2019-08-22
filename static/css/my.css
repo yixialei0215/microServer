@@ -1,0 +1,37 @@
+.error {
+    color: red;
+    font-size: 20px;
+}
+
+.warn {
+    color: yellow;
+}
+
+.success {
+    color: greenyellow;
+}
+
+nav ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    float: left;
+    padding: 5px;
+}
+nav ul{
+    height: 0;
+}
+nav li:hover {
+    border: 1px solid crimson;
+    border-radius: 5px;
+    background-color: orangered;
+}
+nav ul:after{
+    content: "";
+    display: block;
+    clear: both;
+    overflow: hidden;
+}

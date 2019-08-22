@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Index Page</title>
+    <link rel="stylesheet" href="/s/css/my.css">
+    {% autoescape None %}
+</head>
+<body>
+<h3>我是主页</h3>
+<nav>
+    <ul>
+        {% for menu in menus %}
+        <li>{{ menu }}</li>
+        {% end %}
+    </ul>
+</nav>
+
+<p>{{ msg }}</p>
+<P>
+    {{ 'hi,Disen'[-4:] }}
+</P>
+<P>{{ len('hi,disen') }}</P>
+<P>{{ ','.join([str(x**2) for x in range(10)]) }}</P>
+<P>
+    {% if msg %}
+    <span class="error">{{ msg }}</span>
+    {% end %}
+</P>
+
+<p>
+    {% if age<18 %}
+    <span class="error">未成年禁足</span>
+    {% elif age>60 %}
+    <span class="warn">老人家不要进入</span>
+    {% else %}
+    <span class="success">正常</span>
+    {% end %}
+</p>
+<p >
+    <textarea id="p">{{ code }}</textarea>
+</p>
+{{ code }}
+<p id="p1">
+    <script>
+        console.log(document.getElementById('p').text);
+        document.getElementById('p1').innerHTML = document.getElementById('p').value
+    </script>
+</p>
+</body>
+</html>

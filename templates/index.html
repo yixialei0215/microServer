@@ -8,13 +8,12 @@
 {% end %}
 
 {% block content %}
-<p>
-    {% if age<18 %}
-    <span class="error">未成年禁足</span>
-    {% elif age>60 %}
-    <span class="warn">老人家不要进入</span>
-    {% else %}
-    <span class="success">正常</span>
-    {% end %}
-</p>
+<div id="left">
+    {% module Menu() %}
+</div>
+<div id="right">
+<iframe name="content" frameborder="0">
+
+</iframe>
+</div>
 {% end %}

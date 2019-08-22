@@ -12,7 +12,7 @@ class IndexHandler(RequestHandler):
             'menus': ['主页', '最新推荐', '热门评价'],
             'code': '<h3>h1,我是图片:8>5</h3>'
         }
-        self.render('index2.html', **data)
+        self.render('index.html', **data)
 
     def post(self, *args, **kwargs):
         # 请求参数的读取

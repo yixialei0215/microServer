@@ -2,7 +2,7 @@ import os
 
 from tornado.web import Application
 
-from mainapp.ui.menu import MenuModule
+from mainapp.ui.menu import MenuModule, Ul_LiModule
 from mainapp.ui.uil import UlModule
 from mainapp.views.cookie_v import CookieHandler
 from mainapp.views.index_hander import IndexHandler
@@ -12,6 +12,9 @@ from mainapp.views.serach_v import SearchHandler
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # E:\microServer
 
 #
+
+
+
 settings = {
     'debug': True,
     'template_path': os.path.join(BASE_DIR, 'templates'),
@@ -19,7 +22,8 @@ settings = {
     'static_url_prefix': '/s/',  # 访问资源路径
     'ui_modules': {
         'Menu': MenuModule,
-        'Ui': UlModule
+        'Ui': UlModule,
+        'Ul_li': Ul_LiModule
     }
 }
 

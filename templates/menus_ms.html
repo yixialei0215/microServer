@@ -1,0 +1,34 @@
+{% extends 'menu_ul.html' %}
+{% block list_dt %}
+<dt class="list_dt">
+    <span class="_after"></span>
+    <p>{{ menus[0].title }}</p>
+    <i class="list_dt_icon"></i>
+</dt>
+{% end %}
+{% block list_dd %}
+<dd class="list_dd">
+    <ul>
+        {% for menus1 in menus_li %}
+        <li class="list_li">{{ menus1.title }}</li>
+        {% end %}
+    </ul>
+</dd>
+{% end %}
+
+{% block list_dtt %}
+<dt class="list_dt">
+    <span class="_after"></span>
+    <p>{{ menus[1].title }}</p>
+    <i class="list_dt_icon"></i>
+</dt>
+{% end %}
+{% block list_ddd %}
+<dd class="list_dd">
+    <ul>
+        {% for menus2 in menus_li2 %}
+        <li class="list_li">{{ menus2.title }}</li>
+        {% end %}
+    </ul>
+</dd>
+{% end %}

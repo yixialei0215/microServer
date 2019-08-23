@@ -9,6 +9,8 @@ from mainapp.views.donload import DownloadHandler, AsyncDownloadHandler, Async2D
 from mainapp.views.index_hander import IndexHandler
 from mainapp.views.order_v import OrderHandeler
 from mainapp.views.serach_v import SearchHandler
+from mainapp.views.message import MessageHandler, RobbitHandler
+from mainapp.views.user import UserHandler
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # E:\microServer
 
@@ -24,7 +26,9 @@ settings = {
         'Menu': MenuModule,
         'Ui': UlModule,
         'Ul_li': Ul_LiModule
-    }
+    },
+    'cookie_secret': '135asd1g53as13g',
+    'xsrf_cookies': True
 }
 
 
@@ -34,5 +38,10 @@ def make_app(host='localhost'):
         ('/search', SearchHandler),
         ('/cookie', CookieHandler),
         (r'/order/(?P<code>\d+)/(?P<id>\d+)', OrderHandeler),
-        ('/download', Async2DownloadHandler)
+        ('/download2', Async2DownloadHandler),
+        ('/download1', AsyncDownloadHandler),
+        ('/download', DownloadHandler),
+        ('/robbit', RobbitHandler),
+        ('/message', MessageHandler),
+        ('/login', UserHandler)
     ], default_host=host, **settings)

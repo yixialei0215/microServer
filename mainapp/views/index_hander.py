@@ -5,14 +5,7 @@ from tornado.web import RequestHandler
 class IndexHandler(RequestHandler):
 
     def get(self, *args, **kwargs):
-        data = {
-            'msg': 'Hi,Disen,西安欢迎您',
-            'error_msg': '你来错地方了',
-            'age': 20,
-            'menus': ['主页', '最新推荐', '热门评价'],
-            'code': '<h3>h1,我是图片:8>5</h3>'
-        }
-        self.render('lis.html', **data)
+        self.render('lis.html')
 
     def post(self, *args, **kwargs):
         # 请求参数的读取

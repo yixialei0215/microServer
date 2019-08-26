@@ -18,6 +18,7 @@
             background-color: sandybrown;
             width: 700px;
             height: 200px;
+            overflow: scroll;
         }
     </style>
 </head>
@@ -44,7 +45,7 @@
             $('message_body').innerHTML += '<br>' + data;
         };
         let btn = document.getElementsByTagName('button')[0];
-        btn.addEventListener('click',function (e) {
+        btn.addEventListener('click', function (e) {
             msg = $('msg').value;
             socket.send(msg)  // 向服务端发送数据
 

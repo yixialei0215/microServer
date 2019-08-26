@@ -45,3 +45,7 @@ def make_app(host='localhost'):
         ('/message', MessageHandler),
         ('/login', UserHandler)
     ], default_host=host, **settings)
+
+
+if __name__ == '__main__':
+    print(BASE_DIR)
